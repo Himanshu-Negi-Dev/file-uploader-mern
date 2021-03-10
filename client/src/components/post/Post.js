@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { getPost, addPost, updatePost, clearCurrent } from "../../actions/post";
 import PostItem from "./PostItem";
@@ -14,6 +14,8 @@ const Post = ({
     imageName: "",
     name: "",
   });
+
+  const buttonRef = useRef();
 
   useEffect(() => {
     if (current) {
@@ -35,6 +37,11 @@ const Post = ({
       image: e.target.files[0],
       imageName: e.target.files[0].name,
     });
+  };
+
+  const handleUploadClick = (e) => {
+    console.log("Current Button: ", buttonRef.current);
+    buttonRef.current.click(handleFileChange);
   };
 
   const handleSubmit = async (e) => {
@@ -68,11 +75,18 @@ const Post = ({
           <div className="form-group">
             {/* img */}
             <input
+              ref={buttonRef}
               type="file"
               // multiple
               name="image"
               onChange={handleFileChange}
+              style={{ display: "none" }}
             />
+            <button className="btn btn-primary" onClick={handleUploadClick}>
+              {/* {data.imageName ? data.imageName : "Upload"} */}
+              Upload
+            </button>
+            {data.imageName ? data.imageName : "No file"}
           </div>
           <div className="form-group">
             <input
