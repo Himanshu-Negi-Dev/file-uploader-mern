@@ -82,7 +82,10 @@ const Post = ({
               onChange={handleFileChange}
               style={{ display: "none" }}
             />
-            <button className="btn btn-primary" onClick={handleUploadClick}>
+            <button
+              className="btn btn-primary"
+              onClick={handleUploadClick}
+              type="button">
               {/* {data.imageName ? data.imageName : "Upload"} */}
               Upload
             </button>

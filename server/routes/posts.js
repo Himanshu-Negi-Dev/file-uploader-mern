@@ -17,14 +17,18 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   console.log("Request Object******************************8: ", req.files);
-  const file = req.files.image;
-  console.log("Dirname ****************", __dirname);
-  file.mv(`${__dirname}/../../client/public/uploads/${file.name}`, (err) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send(err);
-    }
-  });
+
+  console.log(req.files);
+  if (req.files) {
+    const file = req.files.image;
+    console.log("Dirname ****************", __dirname);
+    file.mv(`${__dirname}/../../client/public/uploads/${file.name}`, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+      }
+    });
+  }
   try {
     const newPost = new Post({
       name: req.body.name,
